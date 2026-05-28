@@ -31,23 +31,23 @@ https://github.com/user-attachments/assets/a5ad3a33-66c8-43c5-9e27-19470ab41182
 
 ```text
 Chatterlyn-main/
-+-- main.py                  # FastAPI application entry point
-+-- config.py                # Environment-based configuration
-+-- requirements.txt         # Python dependencies
-+-- db/                      # SQLite database location
++-- main.py                   # FastAPI application entry point
++-- config.py                 # Environment-based configuration
++-- requirements.txt          # Python dependencies
++-- db/                       # SQLite database location
 +-- modules/
-|   +-- connection_manager.py
-|   +-- database.py
-|   +-- dependencies.py
-|   +-- models.py
-|   +-- schemas.py
-|   +-- utils.py
+|   +-- connection_manager.py # WebSocket connection manager
+|   +-- database.py           # Async SQLAlchemy engine and sessions
+|   +-- dependencies.py       # Shared FastAPI dependencies and templates
+|   +-- models.py             # SQLAlchemy database models
+|   +-- schemas.py            # Pydantic validation schemas
+|   +-- utils.py              # Auth, cookies, flash messages, and query helpers
 +-- routers/
-|   +-- auth.py              # Home, register, login, logout
-|   +-- chat.py              # Chat pages, rooms, members, invites
-|   +-- websocket.py         # WebSocket endpoint
-+-- static/                  # CSS, JavaScript, fonts, and images
-+-- templates/               # Jinja2 HTML templates
+|   +-- auth.py               # Home, register, login, logout
+|   +-- chat.py               # Chat pages, rooms, members, invites
+|   +-- websocket.py          # WebSocket endpoint
++-- static/                   # CSS, JavaScript, fonts, and images
++-- templates/                # Jinja2 HTML templates
 ```
 
 ## Requirements
