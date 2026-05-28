@@ -1,0 +1,55 @@
+<!-- Navbar -->
+<nav class="navbar d-lg-none bg-body sticky-top shadow-lg">
+    <div class="container-xxl">
+
+        <a class="navbar-brand" href="/">
+            <img src="/static/images/logo/logo-chatterlyn-light.svg" style="height: 2rem; width: auto;" alt="Chatterlyn">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Offcanvas menu -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+
+            {% include "sidebar.html" %}
+
+        </div> 
+    </div>
+</nav>
+<!-- End Navbar -->
+
+<!-- Modal positioned outside sidebar to avoid z-index conflicts with offcanvas -->
+<div class="modal fade" id="newChat" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">New chat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/chat/create" method="post" id="createChatForm">
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Chat name:</label>
+                        <input class="form-control" id="name" name="name" type="text" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="type" class="col-form-label">Type:</label>
+                        <select class="form-select" name="type" id="type">
+                            <option value="public" selected>Public</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit" form="createChatForm">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

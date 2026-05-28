@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column flex-lg-row" style="height: 100svh;">
+
+        {% include "navbar-chat.html" %}
+
+        <!-- Sidebar (hidden on small screens) -->
+        <div class="d-none d-lg-flex flex-column position-relative z-1 shadow-lg bg-body" style="width: 300px; min-width: 300px;">
+                {% include "sidebar.html" %}
+            
+        </div>
+        
+        <!-- Chat area (takes up remaining space) -->
+        <div class="position-relative z-0 d-flex flex-column flex-grow-1" style="min-height: 0; min-width: 0;">
+
+            <!-- Chat header bar -->
+            <div class="position-relative z-1 d-flex justify-content-between bg-body p-3 flex-nowrap shadow-sm">
+
+                <!-- Chat name and member count -->
+                <div class="d-flex gap-3 min-width-0 align-items-center overflow-hidden">
+
+                    {% if chat.type.value == "public"  %}
+                        <span class="rounded-3 bg-primary d-flex align-items-center justify-content-center p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="1em" height="1em" fill="currentColor" class="flex-shrink-0">
+                            <path d="M278.7 64.7C296 68.4 307 85.4 303.3 102.7L284.2 192L410.7 192L432.7 89.3C436.4 72 453.4 61 470.7 64.7C488 68.4 499 85.4 495.3 102.7L476.2 192L544 192C561.7 192 576 206.3 576 224C576 241.7 561.7 256 544 256L462.4 256L435 384L502.8 384C520.5 384 534.8 398.3 534.8 416C534.8 433.7 520.5 448 502.8 448L421.2 448L399.2 550.7C395.5 568 378.5 579 361.2 575.3C343.9 571.6 332.9 554.6 336.6 537.3L355.7 448L229.2 448L207.2 550.7C203.5 568 186.5 579 169.2 575.3C151.9 571.6 140.9 554.6 144.6 537.3L163.8 448L96 448C78.3 448 64 433.7 64 416C64 398.3 78.3 384 96 384L177.6 384L205 256L137.2 256C119.5 256 105.2 241.7 105.2 224C105.2 206.3 119.5 192 137.2 192L218.8 192L240.8 89.3C244.4 72 261.4 61 278.7 64.7zM270.4 256L243 384L369.5 384L396.9 256L270.4 256z"/>
+                            </svg>
+                        </span>
+
+                    {% elif chat.type.value == "private" %}
+                        <span class="rounded-3 bg-primary d-flex align-items-center justify-content-center p-3">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="flex-shrink-0 bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+                            </svg>
+                        </span>
+                    {% endif %}
+
+                    <div style="min-width: 0;">
+                        <span class="lead fs-4 fw-semibold d-block text-truncate">{{ chat.name }}</span>
+
+                        <div id="numMembers" class="text-truncate">Members {{ num_members }}</div>
+                    </div>
+
+                </div>
+
+                <!-- Buttons for members and invite link -->
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-primary p-3 d-flex" type="button" data-bs-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-three-dots-vertical flex-shrink-0" viewBox="0 0 16 16">
+                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <!-- Opens modal, member list is loaded via fetch on click -->
+                                <button type="button" id="seeMembers" class="dropdown-item p-2" data-bs-toggle="modal" data-bs-target="#membersTable">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="2.2em" height="2.2em" fill="currentColor" class="bi bi-people-fill text-bg-primary p-2 me-1 rounded-3" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                                    </svg>
+                                    <span class="fw-semibold">
+                                        View members 
+                                    </span>
+                                </button>
+                            </li>
+                            {% if role and role.value == "owner" and chat.type.value == "private" %}
+                            <li>
+                                <!-- Generates invitation link via fetch and shows it in a toast -->
+                                <button type="button" id="genlinkBtn" class="dropdown-item p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="2.2em" height="2.2em" fill="currentColor" class="text-bg-primary p-2 me-1 rounded-3">
+                                    <path d="M451.5 160C434.9 160 418.8 164.5 404.7 172.7C388.9 156.7 370.5 143.3 350.2 133.2C378.4 109.2 414.3 96 451.5 96C537.9 96 608 166 608 252.5C608 294 591.5 333.8 562.2 363.1L491.1 434.2C461.8 463.5 422 480 380.5 480C294.1 480 224 410 224 323.5C224 322 224 320.5 224.1 319C224.6 301.3 239.3 287.4 257 287.9C274.7 288.4 288.6 303.1 288.1 320.8C288.1 321.7 288.1 322.6 288.1 323.4C288.1 374.5 329.5 415.9 380.6 415.9C405.1 415.9 428.6 406.2 446 388.8L517.1 317.7C534.4 300.4 544.2 276.8 544.2 252.3C544.2 201.2 502.8 159.8 451.7 159.8zM307.2 237.3C305.3 236.5 303.4 235.4 301.7 234.2C289.1 227.7 274.7 224 259.6 224C235.1 224 211.6 233.7 194.2 251.1L123.1 322.2C105.8 339.5 96 363.1 96 387.6C96 438.7 137.4 480.1 188.5 480.1C205 480.1 221.1 475.7 235.2 467.5C251 483.5 269.4 496.9 289.8 507C261.6 530.9 225.8 544.2 188.5 544.2C102.1 544.2 32 474.2 32 387.7C32 346.2 48.5 306.4 77.8 277.1L148.9 206C178.2 176.7 218 160.2 259.5 160.2C346.1 160.2 416 230.8 416 317.1C416 318.4 416 319.7 416 321C415.6 338.7 400.9 352.6 383.2 352.2C365.5 351.8 351.6 337.1 352 319.4C352 318.6 352 317.9 352 317.1C352 283.4 334 253.8 307.2 237.5z"/>
+                                    </svg>
+                                    <span class="fw-semibold">
+                                        Generate invitation link                          
+                                    </span>
+                                </button>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <!-- Form submission, General chat (id=1) cannot be abandoned -->
+                                {% if chat.id != 1 %}
+                                <form action="/chat/{{ chat.id }}/leave" method="post">
+                                    <button type="submit" id="leaveBtn" class="dropdown-item p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2.2em" height="2.2em" fill="currentColor" class="bi bi-box-arrow-left text-bg-primary p-2 me-1 rounded-3" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                                        </svg>
+                                        <span class="fw-semibold">
+                                            Leave chat 
+                                        </span>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages area -->
+            <div class="d-flex flex-column-reverse position-relative z-0 flex-grow-1 overflow-y-auto overflow-x-hidden bg-body-secondary" style="background: linear-gradient(0deg, rgba(var(--bs-primary-rgb), 0.3), rgba(var(--bs-secondary-rgb), 0.2));">
+                <div class="px-4 container-lg" id="messages"></div>
+
+            </div>
+
+            <!-- Chat input area -->
+            <div class="position-relative z-1 d-flex align-items-center justify-content-center py-3 px-4 gap-3 bg-body" style="box-shadow: 0px 5px 27px var(--bs-primary);">
+
+                <!-- Plus icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-plus-circle-fill flex-shrink-0 chat-icon text-primary" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                </svg>
+
+                <textarea class="form-control overflow-y-hidden bg-body-secondary rounded-4" id="messageText" placeholder="Type your message..."></textarea>
+
+                <!-- Microphone -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-mic-fill flex-shrink-0 chat-icon text-primary" viewBox="0 0 16 16">
+                <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z"/>
+                <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+                </svg>
+
+                <!-- Send button -->
+                <button id="sendBtn" class="btn btn-primary rounded-5 chat-icon"  title="Send">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                    </svg>
+                </button>
+
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Members list modal -->
+    <div class="modal fade" id="membersTable" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title text-dark fw-semibold fs-5">Members list</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Join date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberList">
+                        <!-- Inserted via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invitation link toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="inviteToast" class="toast" data-bs-autohide="false">
+            <div class="toast-header" >
+                <strong class="me-auto">Invitation link</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <span id="invite-link"></span>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        // Active chat ID, injected by Jinja based on route
+        const chatId = {{ chat.id }};
+
+        // tojson adds quotes so JS reads it as a string without errors
+        const userName = {{ user.username | tojson }};
+
+        // tojson converts Python dict to valid JS object
+        const chatsNotify = {{ chats_notify | tojson }};
+
+        // Unread message counters by chat, updated in real-time via WebSocket
+        const unreadCounts = {{ unread_counts | tojson }};
+
+    </script>
+
+    <!-- Chat JS: WebSocket + fetch for members and invitations -->
+    <script src="/static/js/chat.js"></script>
+
+{% endblock %}

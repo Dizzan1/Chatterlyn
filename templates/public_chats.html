@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Public chats{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column flex-lg-row bg-body-secondary" style="height: 100svh;">
+
+        {% include "navbar-chat.html" %}
+
+        <!-- Sidebar (hidden on small screens) -->
+        <div class="d-none d-lg-flex flex-column position-relative z-1 shadow-lg bg-body" style="width: 300px; min-width: 300px;">
+                {% include "sidebar.html" %}
+            
+        </div>
+
+
+        <!-- Public chats list container -->
+        <div class="container-lg overflow-y-auto">
+
+            <!-- Page title -->
+            <div class="pt-4 text-center">
+                <h1 class="fs-1 fw-bold">Public chats list</h1>
+                <hr class="border border-primary border-2">
+            </div>
+            
+
+            <!-- List of public chats -->
+            <div class="row">
+                {% for chat in chats %}
+                    <div class="col-md-6 col-lg-3 d-flex p-3">
+
+
+                        <a href="/chat?chat_id={{chat.id}}" role="button" class="d-flex align-items-center btn btn-primary
+                        flex-grow-1 public-chats" style="min-height: 150px;">
+                            <div class="h3 fw-medium flex-grow-1 text-break">
+                                {{ chat.name | title }}
+                            </div>
+                        </a>
+                        
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        const chatId = null;
+        const chatsNotify = {{ chats_notify | tojson }};
+        const unreadCounts = {{ unread_counts | tojson }};
+    </script>
+
+    <script src="/static/js/sidebar.js"></script>
+{% endblock %}

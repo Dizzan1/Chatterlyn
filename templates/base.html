@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chatterlyn{% endblock %}</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/images/logo/icono-chatterlyn-light.svg" media="(prefers-color-scheme:light)">
+    <link rel="icon" type="image/svg+xml" href="/static/images/logo/icono-chatterlyn-dark.svg" media="(prefers-color-scheme:dark)">
+    
+
+    <!-- Compiled Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/main.min.css">
+
+    <!-- Chatterlyn custom CSS -->
+    <link rel="stylesheet" href="/static/css/chatterlyn.css">
+</head>
+<body>
+
+    <!-- Alert modals for flash messages -->
+    <!-- get_flashes reads and removes session messages in a single step;
+    saved in a Jinja variable as it's used in both HTML and JavaScript -->
+    {% set flashes = get_flashes(request) %}
+    {% for flash in flashes %}
+    <div class="modal fade" id="flashModal{{ loop.index }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" fill="currentColor" class="bi bi-exclamation-triangle-fill text-danger me-2" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>Error
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body pt-2">
+                    {{ flash.message }}
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Bootstrap JavaScript -->
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chatterlyn global script -->
+    <script src="/static/js/main.js"></script>
+
+    <script>
+        // Bootstrap modals must be instantiated and shown manually
+        {% for flash in flashes %}
+            new bootstrap.Modal(document.getElementById('flashModal{{ loop.index }}')).show();
+        {% endfor %}
+    </script>
+
+    <!-- Optional scripts that may depend on Bootstrap -->
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

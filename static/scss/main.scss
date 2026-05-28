@@ -1,0 +1,114 @@
+// Custom SCSS variables
+// Do NOT override variables that were added before (!default)
+// Better to override than add to take advantage of color-contrast()
+$light: #FED7AA;
+$primary: #FB923C;
+$dark: #EA580C;
+// Hex color: D2490A
+$secondary: #5EEAD4;
+
+// Body colors
+$body-bg:           #FAF8F5;
+$body-secondary-bg: #F5EFE6;
+$body-tertiary-bg:  #EDE4D8;
+$body-emphasis-color: #EA580C;
+
+// Lower the threshold to decide if text should be white or black
+$min-contrast-ratio: 3;
+
+// Font stack
+$font-family-sans-serif: "Quicksand", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-weight-base: 600;
+
+// Font sizes using Perfect Fourth scale (1.333)
+$display-font-sizes: (
+    1: 9.969rem,
+    2: 7.478rem,
+    3: 5.61rem,
+    4: 4.209rem,
+    5: 3.157rem,
+    6: 2.369rem
+);
+
+// Button styles
+$btn-font-weight: 600;
+$input-btn-padding-y-lg: .75rem;
+$input-btn-padding-x-lg: 2rem;
+
+// Link styles
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+// Toast notifications
+$toast-box-shadow: 0 0px 15px rgba($secondary, 0.5);
+
+// Import Bootstrap functions and variables
+@import "bootstrap-scss/functions"; // Functions use variables (order matters)
+@import "bootstrap-scss/variables";
+
+// Load global CSS variables
+:root {
+    --bs-offcanvas-bg: #{$body-bg};
+    --bs-offcanvas-padding-x: #{$offcanvas-padding-x};
+    --bs-offcanvas-padding-y: #{$offcanvas-padding-y};
+    --bs-offcanvas-color: #{$body-color};
+}
+
+// Add custom colors to theme
+// $custom-theme-colors: (
+//     "primary-dark": #C2550F,
+//     "primary-light": #FED7AA
+// );
+
+// $theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+// scss-docs-start import-stack
+// Disabled Bootstrap components
+// @import "variables-dark";
+// @import "bootstrap-scss/button-group";
+// @import "bootstrap-scss/accordion";
+// @import "bootstrap-scss/breadcrumb";
+// @import "bootstrap-scss/pagination";
+// @import "bootstrap-scss/alert";
+// @import "bootstrap-scss/progress";
+// @import "bootstrap-scss/list-group";
+// @import "bootstrap-scss/popover";
+// @import "bootstrap-scss/placeholders";
+// @import "bootstrap-scss/images";
+
+// Configuration
+@import "bootstrap-scss/maps";
+@import "bootstrap-scss/mixins";
+@import "bootstrap-scss/utilities";
+
+// Layout & components
+@import "bootstrap-scss/root";
+@import "bootstrap-scss/reboot";
+@import "bootstrap-scss/type";
+@import "bootstrap-scss/images";
+@import "bootstrap-scss/containers";
+@import "bootstrap-scss/grid";
+@import "bootstrap-scss/tables";
+@import "bootstrap-scss/forms";
+@import "bootstrap-scss/buttons";
+@import "bootstrap-scss/transitions";
+@import "bootstrap-scss/dropdown";
+@import "bootstrap-scss/nav";
+@import "bootstrap-scss/navbar";
+@import "bootstrap-scss/card";
+@import "bootstrap-scss/badge";
+@import "bootstrap-scss/close";
+@import "bootstrap-scss/toasts";
+@import "bootstrap-scss/modal";
+@import "bootstrap-scss/tooltip";
+@import "bootstrap-scss/carousel";
+@import "bootstrap-scss/spinners";
+@import "bootstrap-scss/offcanvas";
+
+
+// Helper classes
+@import "bootstrap-scss/helpers";
+
+// Utilities and API
+@import "bootstrap-scss/utilities/api"; // Generates final CSS output
+// scss-docs-end import-stack

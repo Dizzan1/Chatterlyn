@@ -1,0 +1,16 @@
+# FastAPI framework
+fastapi[standard]==0.129.2
+# ORM and SQL
+sqlalchemy==2.0.46
+# Generate and verify JWT tokens
+PyJWT==2.11.0
+# Handle password hashes
+pwdlib[argon2]==0.3.0
+# Regular expressions
+regex==2026.2.19
+# Async SQLite
+aiosqlite==0.22.1
+# Required to sign session cookie (middleware)
+itsdangerous==2.2.0
+# Load environment variables from .env file
+python-dotenv==1.2.1

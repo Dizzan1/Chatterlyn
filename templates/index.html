@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+<!-- Title chatterlyn por defecto -->
+
+{% block content %}
+
+    {% include "navbar.html" %}
+
+    <!-- Hero section -->
+    <section id="hero" class="d-flex align-items-center position-relative z-0 overflow-hidden" style="min-height: 100svh;">
+
+        <!-- Carousel -->
+        <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade position-absolute top-0 start-0 w-100 h-100 overlay" data-bs-ride="carousel"
+        data-bs-pause="false" data-bs-interval="3000">
+            <div class="carousel-inner h-100">
+                <div class="carousel-item active h-100">
+                <img src="/static/images/chatterlyn-hero.webp" class="d-block w-100 h-100 object-fit-cover" alt="Chatterlyn hero">
+                </div>
+                <div class="carousel-item h-100">
+                <img src="/static/images/Woman-chatting.webp" class="d-block w-100 h-100 object-fit-cover" alt="Woman chatting">
+                </div>
+                <div class="carousel-item h-100">
+                <img src="/static/images/Two-phones.webp" class="d-block w-100 h-100 object-fit-cover" alt="Two phones">
+                </div>
+            </div>
+        </div>
+        <!-- End Carousel -->
+
+        <!-- Hero content -->
+        <div class="container-xxl position-relative z-3">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="mb-5">
+                        <div class="display-1 fw-bold">Chat</div>
+                        <div class="display-2 fw-bold text-primary">Connect</div>
+                        <div class="display-3 fw-bold text-dark">Collaborate</div>
+                    </h1>
+
+                    <a href="/login" class="btn btn-lg btn-primary shadow-lg fw-bold mb-4 btn-animate">
+                        Get Started &nbsp;
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                        </svg>
+                    </a>
+
+                    <p class="display-6 fw-semibold">
+                        A modern chat platform that brings together friends, communities and teams
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Hero content -->
+
+    </section>
+    <!-- End Hero section -->
+
+    {% include "footer.html" %}
+
+{% endblock %}

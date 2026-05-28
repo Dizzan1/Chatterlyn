@@ -1,0 +1,10 @@
+__pycache__/
+.chatterlyn-env/
+.venv/
+venv/
+*.pyc
+.pytest_cache/
+.vscode/
+static/scss/bootstrap-scss
+db/*.db
+.env
