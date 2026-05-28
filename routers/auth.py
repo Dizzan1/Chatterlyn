@@ -88,7 +88,7 @@ async def authenticate_user(request: Request, form: Annotated[schemas.Login, For
     return response
 
 # PRIVATE ROUTE
-@router.get("/logout", tags=["Logout"])
+@router.post("/logout", tags=["Logout"])
 async def logout(request: Request, user: CurrentUser, db: DBSession):
     if not user:
         utils.set_flash(request, "You must log in")
