@@ -1,3 +1,5 @@
+<img width="1280" height="640" alt="chatterlyn-logo" src="https://github.com/user-attachments/assets/a2ef368e-0bba-4b47-ad4a-dfbb405569d9" />
+
 # Chatterlyn
 
 Chatterlyn is a real-time chat web application built with Python, FastAPI, Jinja2, SQLAlchemy, SQLite, Bootstrap, and WebSockets. It provides user authentication, public and private chat rooms, message history, unread message counters, member lists, and invitation links for private rooms.
