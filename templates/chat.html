@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <div class="d-flex flex-column flex-lg-row" style="height: 100svh;">
+    <div class="d-flex flex-column flex-lg-row" style="height: 100dvh;">
 
         {% include "navbar-chat.html" %}
 
@@ -200,5 +200,33 @@
 
     <!-- Chat JS: WebSocket + fetch for members and invitations -->
     <script src="/static/js/chat.js"></script>
+
+    <script>
+       const messageInput = document.getElementById('messageText');
+
+       if (window.visualViewport) {
+               window.visualViewport.addEventListener('resize', () => {
+                       if (document.activeElement === messageInput) {
+                               setTimeout(() => {
+                                       messageInput.scrollIntoView({
+                                               behavior: "smooth",
+                                               block: "center"
+                                       });
+                               }, 50);
+                       }
+               });
+       }
+
+       messageInput.addEventListener("focusin", () => {
+               setTimeout(() => {
+                       messageInput.scrollIntoView({
+                               behavior: "smooth",
+                               block: "center"
+                       });
+               }, 400);
+       });
+
+
+    </script>
 
 {% endblock %}
